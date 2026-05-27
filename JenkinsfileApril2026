@@ -4,7 +4,11 @@ def mavenHome = tool name: 'maven3.9.14'
 
 properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')), pipelineTriggers([pollSCM('* * * * *')])])
 
-
+echo "The Branch name is: ${env.BRANCH_NAME}"
+echo "The Build Number is: ${env.BUILD_NUMBER}"
+echo "The Job name is: ${env.JOB_NAME}"
+echo "The Node name is: ${env.NODE_NAME}"
+echo "The Jenkins home is: ${env.JENKINS_HOME}"
 
 stage('CheckOutCode'){
 git branch: 'development', credentialsId: 'ce4dfd58-070c-4358-aea3-836f057d9165', url: 'https://github.com/MithunTechnologiesDevOps/Maven-Web-Application.git'
