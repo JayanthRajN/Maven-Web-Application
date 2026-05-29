@@ -14,7 +14,7 @@ pipeline
 
     stages
     {
-        stage('Checkout Code from GitHub Repository')
+        stage('Checkout Code from GitHub')
         {
             steps()
             {
