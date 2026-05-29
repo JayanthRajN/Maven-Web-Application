@@ -64,7 +64,7 @@ pipeline
             {
                 sshagent(['DeploymentServer_SSH'])
                 {
-                    sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.38.111 docker rm -f maven-containner || true"
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.38.111 docker rm -f maven-container || true"
                     sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.38.111 docker run -d --name maven-container -p 8080:8080 mithuntechnologies/maven-service:${buildNumber}"
                 }
             }
