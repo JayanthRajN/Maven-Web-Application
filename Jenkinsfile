@@ -7,6 +7,11 @@ pipeline
         maven 'Maven_3.9.15'
     }
 
+    environment
+    {
+        buildNumber = "${BUILD_NUMBER}"
+    }
+
     stages
     {
         stage('Git Checkout')
@@ -22,6 +27,23 @@ pipeline
             steps()
             {
                 sh 'mvn clean package'
+            }
+        }
+
+        stage('Create Docker Image')
+        {
+            steps()
+            {
+                sh 'docker build -t 149536451818.dkr.ecr.ap-south-1.amazonaws.com/login-service:${buildNumber} .'
+            }
+        }
+
+        stage('Authenticate and Push Docker Image to AWS ECR')
+        {
+            steps()
+            {
+                sh 'aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 149536451818.dkr.ecr.ap-south-1.amazonaws.com'
+                sh 'docker push 149536451818.dkr.ecr.ap-south-1.amazonaws.com/login-service:${buildNumber}'
             }
         }
     }
